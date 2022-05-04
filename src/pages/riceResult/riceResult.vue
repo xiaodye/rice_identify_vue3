@@ -1,17 +1,23 @@
 <template>
-  <view class="index">
-    <view class="chart-container">
-      <view class="header">数据图表</view>
-      <!-- 柱状图 -->
-      <qiun-data-charts
-        type="column"
-        :canvasId="canvasColumId"
-        :canvas2d="true"
-        :opts="columnOpts"
-        :loadingType="5"
-        :chartData="chartData"
-        background="none"
-      />
+  <view class="rice_result">
+    <!-- 数据图表 -->
+    <view class="chart">
+      <view class="header">
+        <view class="header-title">数据图表</view>
+      </view>
+
+      <view class="chart-container">
+        <!-- 柱状图 -->
+        <qiun-data-charts
+          type="column"
+          :canvasId="canvasColumId"
+          :canvas2d="true"
+          :opts="columnOpts"
+          :loadingType="5"
+          :chartData="chartData"
+          background="none"
+        />
+      </view>
     </view>
   </view>
 </template>
@@ -59,33 +65,50 @@ onLoad(() => {
 </script>
 
 <style lang="scss" scoped>
-@mixin before() {
+view {
+  box-sizing: border-box;
+}
+@mixin before($bgColor: #2979ff) {
   content: "";
   position: absolute;
+  height: 80%;
+  width: 10rpx;
+  border-radius: 6rpx;
+  background-color: $bgColor;
   left: 0;
   top: 50%;
+  transform: translate(0, -50%);
 }
-.index {
-  min-height: 100vh;
-  background-color: $uni-bg-color-grey;
-  padding: 20rpx;
 
-  .chart-container {
-    height: 400rpx;
+$chart_height: 400rpx;
+.rice_result {
+  padding: 20rpx;
+  .chart {
     background-color: #fff;
     padding: 20rpx;
+    padding-top: 0;
     border-radius: 20rpx;
 
     .header {
       height: 80rpx;
       display: flex;
       align-items: center;
-      position: relative;
 
-      &::before {
-        @include before();
+      &-title {
+        position: relative;
+        padding-left: 30rpx;
+        font-size: 32rpx;
+        color: $uni-color-paragraph;
+        font-weight: bold;
+        &::before {
+          @include before();
+        }
       }
     }
+  }
+
+  .chart-container {
+    height: $chart_height;
   }
 }
 </style>

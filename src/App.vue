@@ -36,4 +36,10 @@ export default {
 
 <style lang="scss">
 /*每个页面公共css */
+@import "vk-uview-ui/index.scss";
+
+page {
+  min-height: 100vh;
+  background-color: $uni-bg-color-grey;
+}
 </style>
