@@ -6,8 +6,8 @@
         <view class="header-title">数据图表</view>
       </view>
 
+      <!-- 柱状图 -->
       <view class="chart-container">
-        <!-- 柱状图 -->
         <qiun-data-charts
           type="column"
           :canvasId="canvasColumId"
@@ -17,6 +17,35 @@
           :chartData="chartData"
           background="none"
         />
+      </view>
+    </view>
+
+    <!-- rice -->
+    <view class="data">
+      <view class="header">
+        <view class="header-title">纯度最高种子</view>
+      </view>
+
+      <view class="data-seed">
+        <u-image
+          width="200rpx"
+          height="200rpx"
+          border-radius="10rpx"
+          :src="imageUrl"
+          mode="aspectFill"
+          @click="previewImage(imageUrl)"
+        ></u-image>
+
+        <view class="data-seed-info">
+          <view class="name">
+            <view class="name-key">名称：</view>
+            <view class="name-value">{{ "08" }} </view>
+          </view>
+          <view class="purity">
+            <view class="purity-key">纯度：</view>
+            <view class="purity-value color_green">{{ 23.4 + "%" }} </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
@@ -29,6 +58,7 @@ import { onLoad } from "@dcloudio/uni-app"
 // 图表id
 let canvasColumId = ref("canvasColumId1")
 let canvasLineId = ref("canvasLineId1")
+let imageUrl = ref("https://cdn.uviewui.com/uview/album/1.jpg")
 
 // 图表配置
 const columnOpts = reactive({
@@ -59,7 +89,13 @@ function uChartInit() {
   // }, 2000)
 }
 
-onLoad(() => {
+// 预览图片
+const previewImage = imageUrl => {
+  uni.previewImage({ urls: [imageUrl] })
+}
+
+onLoad(options => {
+  imageUrl.value = options.imageUrl
   uChartInit()
 })
 </script>
@@ -83,32 +119,74 @@ view {
 $chart_height: 400rpx;
 .rice_result {
   padding: 20rpx;
+
+  .header {
+    height: 80rpx;
+    display: flex;
+    align-items: center;
+
+    &-title {
+      position: relative;
+      padding-left: 30rpx;
+      font-size: 32rpx;
+      color: $uni-color-paragraph;
+      font-weight: bold;
+      &::before {
+        @include before();
+      }
+    }
+  }
   .chart {
     background-color: #fff;
     padding: 20rpx;
     padding-top: 0;
     border-radius: 20rpx;
 
-    .header {
-      height: 80rpx;
-      display: flex;
-      align-items: center;
-
-      &-title {
-        position: relative;
-        padding-left: 30rpx;
-        font-size: 32rpx;
-        color: $uni-color-paragraph;
-        font-weight: bold;
-        &::before {
-          @include before();
-        }
-      }
+    .chart-container {
+      height: $chart_height;
     }
   }
 
-  .chart-container {
-    height: $chart_height;
+  .data {
+    background-color: #fff;
+    padding: 20rpx;
+    padding-top: 0;
+    border-radius: 20rpx;
+    margin-top: 40rpx;
+
+    &-seed {
+      display: flex;
+      // align-items: center;
+      justify-content: space-between;
+      padding: 20rpx;
+
+      &-info {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+      }
+      .name,
+      .purity {
+        display: flex;
+        align-items: center;
+        // margin-bottom: 30rpx;
+
+        &-key {
+          font-size: 32rpx;
+          color: $uni-color-paragraph;
+          font-weight: bold;
+        }
+
+        &-value {
+          font-size: 36rpx;
+          font-weight: bold;
+        }
+        .color_green {
+          color: #19be6b;
+        }
+      }
+    }
   }
 }
 </style>

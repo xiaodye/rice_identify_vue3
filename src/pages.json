@@ -12,7 +12,8 @@
     {
       "path": "pages/scanning/scanning",
       "style": {
-        "navigationBarTitleText": "识别"
+        "navigationBarTitleText": "识别",
+        "navigationBarBackgroundColor": "#f8f8f8"
       }
     },
     {
