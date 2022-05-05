@@ -2,9 +2,7 @@
   <view class="rice_result">
     <!-- 数据图表 -->
     <view class="chart">
-      <view class="header">
-        <view class="header-title">数据图表</view>
-      </view>
+      <MarkHead title="图表"></MarkHead>
 
       <!-- 柱状图 -->
       <view class="chart-container">
@@ -22,9 +20,7 @@
 
     <!-- rice -->
     <view class="data">
-      <view class="header">
-        <view class="header-title">纯度最高种子</view>
-      </view>
+      <MarkHead title="纯度最高种子"></MarkHead>
 
       <view class="data-seed">
         <u-image
@@ -104,38 +100,11 @@ onLoad(options => {
 view {
   box-sizing: border-box;
 }
-@mixin before($bgColor: #2979ff) {
-  content: "";
-  position: absolute;
-  height: 80%;
-  width: 10rpx;
-  border-radius: 6rpx;
-  background-color: $bgColor;
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-}
 
 $chart_height: 400rpx;
 .rice_result {
   padding: 20rpx;
 
-  .header {
-    height: 80rpx;
-    display: flex;
-    align-items: center;
-
-    &-title {
-      position: relative;
-      padding-left: 30rpx;
-      font-size: 32rpx;
-      color: $uni-color-paragraph;
-      font-weight: bold;
-      &::before {
-        @include before();
-      }
-    }
-  }
   .chart {
     background-color: #fff;
     padding: 20rpx;

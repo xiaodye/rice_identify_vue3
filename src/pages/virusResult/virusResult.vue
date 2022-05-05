@@ -2,9 +2,7 @@
   <view class="virus_result">
     <!-- info -->
     <view class="virus">
-      <view class="header">
-        <view class="header-title">病毒信息</view>
-      </view>
+      <MarkHead title="病毒信息"></MarkHead>
 
       <view class="virus-info">
         <u-image
@@ -27,9 +25,7 @@
 
     <!-- control -->
     <view class="control">
-      <view class="header">
-        <view class="header-title">防治</view>
-      </view>
+      <MarkHead title="防治"></MarkHead>
 
       <view class="control-content">{{ "暂无相关防治" }} </view>
     </view>
@@ -56,37 +52,9 @@ onLoad(options => {
 view {
   box-sizing: border-box;
 }
-@mixin before($bgColor: #2979ff) {
-  content: "";
-  position: absolute;
-  height: 80%;
-  width: 10rpx;
-  border-radius: 6rpx;
-  background-color: $bgColor;
-  left: 0;
-  top: 50%;
-  transform: translate(0, -50%);
-}
 
 .virus_result {
   padding: 20rpx;
-
-  .header {
-    height: 80rpx;
-    display: flex;
-    align-items: center;
-
-    &-title {
-      position: relative;
-      padding-left: 30rpx;
-      font-size: 32rpx;
-      color: $uni-color-paragraph;
-      font-weight: bold;
-      &::before {
-        @include before();
-      }
-    }
-  }
 
   .virus {
     background-color: #fff;
