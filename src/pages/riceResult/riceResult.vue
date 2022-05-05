@@ -74,15 +74,15 @@ const chartData = reactive({
 
 // 图表初始化
 function uChartInit() {
-  // setTimeout(() => {
-  chartData.categories = ["08", "09", "611", "8"]
-  chartData.series = [
-    {
-      name: "种子纯度",
-      data: [0.722, 0.211, 0.341, 0.056],
-    },
-  ]
-  // }, 2000)
+  setTimeout(() => {
+    chartData.categories = ["08", "09", "611", "8"]
+    chartData.series = [
+      {
+        name: "种子纯度",
+        data: [0.722, 0.211, 0.341, 0.056],
+      },
+    ]
+  }, 2000)
 }
 
 // 预览图片
