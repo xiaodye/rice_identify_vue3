@@ -17,7 +17,7 @@
         <view class="virus-info-rg">
           <view class="name">
             <view class="name-key">病毒名称：</view>
-            <view class="name-value">{{ "水稻齿叶矮缩病毒" }} </view>
+            <view class="name-value">{{ lesions[0].name }} </view>
           </view>
         </view>
       </view>
@@ -27,7 +27,7 @@
     <view class="control">
       <MarkHead title="防治"></MarkHead>
 
-      <view class="control-content">{{ "暂无相关防治" }} </view>
+      <view class="control-content">{{ lesions[0].method }} </view>
     </view>
   </view>
 </template>
@@ -37,14 +37,23 @@ import { ref, reactive } from "vue"
 import { onLoad } from "@dcloudio/uni-app"
 
 let imageUrl = ref("https://cdn.uviewui.com/uview/album/1.jpg")
+let lesions = ref([{}])
 
 // 预览图片
 const previewImage = imageUrl => {
   uni.previewImage({ urls: [imageUrl] })
 }
 
+// 获取数据
+function getResultData(res) {
+  imageUrl.value = res.result_Url
+  lesions.value = res.lesions
+  console.log(imageUrl.value, lesions.value)
+}
+
 onLoad(options => {
-  imageUrl.value = options.imageUrl
+  // imageUrl.value = options.imageUrl
+  getResultData(JSON.parse(options.result))
 })
 </script>
 

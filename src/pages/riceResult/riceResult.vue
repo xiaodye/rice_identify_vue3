@@ -35,11 +35,11 @@
         <view class="data-seed-info">
           <view class="name">
             <view class="name-key">名称：</view>
-            <view class="name-value">{{ "08" }} </view>
+            <view class="name-value">{{ maxPuritySeedInfo.name }} </view>
           </view>
           <view class="purity">
             <view class="purity-key">纯度：</view>
-            <view class="purity-value color_green">{{ 23.4 + "%" }} </view>
+            <view class="purity-value color_green">{{ maxPuritySeedInfo.purity + "%" }} </view>
           </view>
         </view>
       </view>
@@ -55,6 +55,10 @@ import { onLoad } from "@dcloudio/uni-app"
 let canvasColumId = ref("canvasColumId1")
 let canvasLineId = ref("canvasLineId1")
 let imageUrl = ref("https://cdn.uviewui.com/uview/album/1.jpg")
+const maxPuritySeedInfo = reactive({
+  name: "",
+  purity: "",
+})
 
 // 图表配置
 const columnOpts = reactive({
@@ -90,9 +94,21 @@ const previewImage = imageUrl => {
   uni.previewImage({ urls: [imageUrl] })
 }
 
+// 获取数据
+function getResultData(res) {
+  imageUrl.value = res.result_Url
+  chartData.categories = res.seedsName
+  chartData.series.push({ name: "种子浓度", data: res.the_purity })
+  maxPuritySeedInfo.name = res.maxPuritySeedInfo.name
+  maxPuritySeedInfo.purity = res.maxPuritySeedInfo.purity
+  console.log(chartData)
+}
+
 onLoad(options => {
-  imageUrl.value = options.imageUrl
-  uChartInit()
+  // imageUrl.value = options.imageUrl
+  // uChartInit()
+
+  getResultData(JSON.parse(options.result))
 })
 </script>
 

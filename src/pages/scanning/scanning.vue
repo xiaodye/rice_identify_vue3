@@ -68,22 +68,30 @@ const uploadImage = async () => {
   submitBtn.value = { text: "提交中", loading: true, disabled: true }
 
   // 上传图片
-
-  mock()
+  // riceIdentify(imageUrl.value)
+  if (currentType === "稻谷识别") {
+    riceIdentify(imageUrl.value)
+  } else if (currentType.value === "病毒识别") {
+    virusIdentify(imageUrl.value)
+  }
+  // mock()
 }
 
 // 稻苗识别
-const riceIdentify = async imagUrl => {
+const riceIdentify = async imageUrl => {
   try {
     const { data: res, statusCode } = await uni.uploadFile({
-      url: "http://192.168.196.237:8080/file/upload/seed",
-      filePath: imageUrl.value,
+      url: "/file/upload/seed",
+      filePath: imageUrl,
       name: "file",
     })
+    // console.log(res, statusCode)
     if (statusCode !== 200) return uni.$u.toast("上传失败")
-    console.log(res)
-    const data = JSON.stringify(res.data)
-    uni.navigateTo({ url: "/pages/detail/detail?data=" + data })
+
+    const { data } = JSON.parse(res)
+    console.log(data)
+    console.log(data[0])
+    uni.navigateTo({ url: "/pages/riceResult/riceResult?result=" + JSON.stringify(data[0]) })
   } catch (err) {
     console.error(err)
     uni.$u.toast("出错了")
@@ -96,14 +104,14 @@ const riceIdentify = async imagUrl => {
 const virusIdentify = async imageUrl => {
   try {
     const { data: res, statusCode } = await uni.uploadFile({
-      url: "http://192.168.196.237:8080/file/upload/seed",
-      filePath: imageUrl.value,
+      url: "/file/upload/lesions",
+      filePath: imageUrl,
       name: "file",
     })
     if (statusCode !== 200) return uni.$u.toast("上传失败")
-    console.log(res)
-    const data = JSON.stringify(res.data)
-    uni.navigateTo({ url: "/pages/detail/detail?data=" + data })
+    const { data } = JSON.parse(res)
+    console.log(data)
+    uni.navigateTo({ url: "/pages/virusResult/virusResult?result=" + JSON.stringify(data) })
   } catch (err) {
     console.error(err)
     uni.$u.toast("出错了")
