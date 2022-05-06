@@ -3,8 +3,8 @@ import App from "./App.vue"
 import vkUviewUi from "vk-uview-ui"
 
 // 拦截器
-const BASE_URL = "http://192.168.196.237:8080"
-// const BASE_URL = "http://192.168.107.69:8080"
+// const BASE_URL = "http://192.168.196.237:8080"
+const BASE_URL = "http://192.168.107.69:8080"
 uni.addInterceptor("request", {
   invoke(args) {
     args.url = BASE_URL + args.url
