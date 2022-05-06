@@ -6,23 +6,16 @@ export default {
     headerHeight: 0, // 头部高度
   },
   onLaunch: function() {
-    console.log("App Launch")
-
     // 状态栏高度
     this.globalData.statusBarHeight = uni.getSystemInfoSync().statusBarHeight
 
     // #ifdef MP-WEIXIN
     // 获取微信胶囊的位置信息 width,height,top,right,left,bottom
     const custom = wx.getMenuButtonBoundingClientRect()
-    // console.log(custom)
-
     // 导航栏高度(标题栏高度) = 胶囊高度 + (顶部距离 - 状态栏高度) * 2
     this.globalData.navigationBarHeight = custom.height + (custom.top - this.globalData.statusBarHeight) * 2
-    // console.log("导航栏高度："+this.globalData.navigationBarHeight)
-
     // 总体高度 = 状态栏高度 + 导航栏高度
     this.globalData.headerHeight = this.globalData.navigationBarHeight + this.globalData.statusBarHeight
-
     // #endif
   },
   onShow: function() {

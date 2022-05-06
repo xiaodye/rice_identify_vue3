@@ -1,13 +1,3 @@
-export const globalMixin = {
-  // rpx转px
-  methods: {
-    rpxToPx(rpx) {
-      const screenWidth = uni.getSystemInfoSync().screenWidth
-      return (Number.parseInt(rpx) * screenWidth) / 750
-    },
-  },
-}
-
 // 自定义导航栏用
 export const systemInfo = {
   computed: {
