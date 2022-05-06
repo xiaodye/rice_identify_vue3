@@ -19,13 +19,13 @@
     {
       "path": "pages/riceResult/riceResult",
       "style": {
-        "navigationBarTitleText": "水稻识别"
+        "navigationBarTitleText": "种子识别"
       }
     },
     {
       "path": "pages/virusResult/virusResult",
       "style": {
-        "navigationBarTitleText": "病毒识别"
+        "navigationBarTitleText": "病害识别"
       }
     }
   ],

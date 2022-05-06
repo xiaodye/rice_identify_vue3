@@ -43,8 +43,8 @@ import { ref, reactive } from "vue"
 import { onLoad } from "@dcloudio/uni-app"
 
 let imageUrl = ref("")
-let typeList = ref([{ name: "稻谷识别" }, { name: "病毒识别" }])
-let currentType = ref("稻谷识别")
+let typeList = ref([{ name: "种子识别" }, { name: "病害识别" }])
+let currentType = ref("种子识别")
 let submitBtn = ref({ text: "提交", loading: false, disabled: false })
 // const uToast = ref(null)
 
@@ -69,9 +69,9 @@ const uploadImage = async () => {
 
   // 上传图片
   // riceIdentify(imageUrl.value)
-  if (currentType === "稻谷识别") {
+  if (currentType.value === "种子识别") {
     riceIdentify(imageUrl.value)
-  } else if (currentType.value === "病毒识别") {
+  } else if (currentType.value === "病害识别") {
     virusIdentify(imageUrl.value)
   }
   // mock()
@@ -89,12 +89,10 @@ const riceIdentify = async imageUrl => {
     if (statusCode !== 200) return uni.$u.toast("上传失败")
 
     const { data } = JSON.parse(res)
-    console.log(data)
-    console.log(data[0])
     uni.navigateTo({ url: "/pages/riceResult/riceResult?result=" + JSON.stringify(data[0]) })
   } catch (err) {
     console.error(err)
-    uni.$u.toast("出错了")
+    uni.$u.toast("服务器异常")
   } finally {
     submitBtn.value = { text: "提交", loading: false, disabled: false }
   }
@@ -110,11 +108,10 @@ const virusIdentify = async imageUrl => {
     })
     if (statusCode !== 200) return uni.$u.toast("上传失败")
     const { data } = JSON.parse(res)
-    console.log(data)
     uni.navigateTo({ url: "/pages/virusResult/virusResult?result=" + JSON.stringify(data) })
   } catch (err) {
     console.error(err)
-    uni.$u.toast("出错了")
+    uni.$u.toast("服务器异常")
   } finally {
     submitBtn.value = { text: "提交", loading: false, disabled: false }
   }

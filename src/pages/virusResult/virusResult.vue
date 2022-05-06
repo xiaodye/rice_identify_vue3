@@ -36,7 +36,7 @@
 import { ref, reactive } from "vue"
 import { onLoad } from "@dcloudio/uni-app"
 
-let imageUrl = ref("https://cdn.uviewui.com/uview/album/1.jpg")
+let imageUrl = ref("")
 let lesions = ref([{}])
 
 // 预览图片

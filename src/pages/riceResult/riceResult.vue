@@ -54,7 +54,7 @@ import { onLoad } from "@dcloudio/uni-app"
 // 图表id
 let canvasColumId = ref("canvasColumId1")
 let canvasLineId = ref("canvasLineId1")
-let imageUrl = ref("https://cdn.uviewui.com/uview/album/1.jpg")
+let imageUrl = ref("")
 const maxPuritySeedInfo = reactive({
   name: "",
   purity: "",
@@ -97,11 +97,12 @@ const previewImage = imageUrl => {
 // 获取数据
 function getResultData(res) {
   imageUrl.value = res.result_Url
-  chartData.categories = res.seedsName
-  chartData.series.push({ name: "种子浓度", data: res.the_purity })
+  setTimeout(() => {
+    chartData.categories = res.seedsName
+    chartData.series.push({ name: "种子浓度", data: res.the_purity })
+  }, 1000)
   maxPuritySeedInfo.name = res.maxPuritySeedInfo.name
   maxPuritySeedInfo.purity = res.maxPuritySeedInfo.purity
-  console.log(chartData)
 }
 
 onLoad(options => {
