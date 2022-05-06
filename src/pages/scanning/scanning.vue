@@ -29,7 +29,8 @@
         :disabled="submitBtn.disabled"
         shape="circle"
         @click="uploadImage"
-        >{{ submitBtn.text }}
+      >
+        {{ submitBtn.text }}
       </u-button>
     </view>
 
