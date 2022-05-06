@@ -66,7 +66,6 @@ function tabsChange(e) {
 function getResultData(res) {
   imageUrl.value = res.result_Url
   lesions.value = res.lesions
-  console.log(imageUrl.value, lesions.value)
 }
 
 onLoad((options) => {
