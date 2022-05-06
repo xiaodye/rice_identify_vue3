@@ -49,12 +49,12 @@ let submitBtn = ref({ text: "提交", loading: false, disabled: false })
 // const uToast = ref(null)
 
 // 切换类型
-const switchType = index => {
+const switchType = (index) => {
   currentType.value = typeList.value[index].name
 }
 
 // 选择图片
-const chooseImage = imageList => {
+const chooseImage = (imageList) => {
   imageUrl.value = imageList[0].url
 }
 // 移除图片
@@ -68,17 +68,17 @@ const uploadImage = async () => {
   submitBtn.value = { text: "提交中", loading: true, disabled: true }
 
   // 上传图片
-  // riceIdentify(imageUrl.value)
   if (currentType.value === "种子识别") {
     riceIdentify(imageUrl.value)
   } else if (currentType.value === "病害识别") {
     virusIdentify(imageUrl.value)
   }
+
   // mock()
 }
 
 // 稻苗识别
-const riceIdentify = async imageUrl => {
+const riceIdentify = async (imageUrl) => {
   try {
     const { data: res, statusCode } = await uni.uploadFile({
       url: "/file/upload/seed",
@@ -99,7 +99,7 @@ const riceIdentify = async imageUrl => {
 }
 
 // 病毒识别
-const virusIdentify = async imageUrl => {
+const virusIdentify = async (imageUrl) => {
   try {
     const { data: res, statusCode } = await uni.uploadFile({
       url: "/file/upload/lesions",

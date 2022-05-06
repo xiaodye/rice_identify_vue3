@@ -2,7 +2,7 @@
   <view class="virus_result">
     <!-- info -->
     <view class="virus">
-      <MarkHead title="病毒信息"></MarkHead>
+      <MarkHead title="病害信息"></MarkHead>
 
       <view class="virus-info">
         <u-image
@@ -15,9 +15,16 @@
         ></u-image>
 
         <view class="virus-info-rg">
-          <view class="name">
-            <view class="name-key">病毒名称：</view>
-            <view class="name-value">{{ lesions[0].name }} </view>
+          <view class="desc">
+            <text user-select>
+              病害共有
+              <text class="desc_weight">{{ lesions.length }}</text>
+              种，分别为：
+              <text class="desc_weight" v-for="(item, index) in lesions" :key="index">
+                {{ item.name }}
+                {{ index === lesions.length - 1 ? "。" : "、" }}
+              </text>
+            </text>
           </view>
         </view>
       </view>
@@ -27,7 +34,12 @@
     <view class="control">
       <MarkHead title="防治"></MarkHead>
 
-      <view class="control-content">{{ lesions[0].method }} </view>
+      <u-tabs :list="lesions" is-scroll v-model="currentTabIndex" :gutter="20"></u-tabs>
+      <swiper class="swiper" :current="currentTabIndex" @change="tabsChange">
+        <swiper-item v-for="(item, index) in lesions" :key="index">
+          <scroll-view class="control-content">{{ item.method }}</scroll-view>
+        </swiper-item>
+      </swiper>
     </view>
   </view>
 </template>
@@ -38,10 +50,16 @@ import { onLoad } from "@dcloudio/uni-app"
 
 let imageUrl = ref("")
 let lesions = ref([{}])
+let currentTabIndex = ref(0)
 
 // 预览图片
-const previewImage = imageUrl => {
+const previewImage = (imageUrl) => {
   uni.previewImage({ urls: [imageUrl] })
+}
+
+// tab切换
+function tabsChange(e) {
+  currentTabIndex.value = e.detail.current
 }
 
 // 获取数据
@@ -51,7 +69,7 @@ function getResultData(res) {
   console.log(imageUrl.value, lesions.value)
 }
 
-onLoad(options => {
+onLoad((options) => {
   // imageUrl.value = options.imageUrl
   getResultData(JSON.parse(options.result))
 })
@@ -74,25 +92,18 @@ view {
     &-info {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      // align-items: center;
       &-rg {
         width: 60%;
+        padding-right: 20rpx;
+        height: 100%;
 
-        .name {
-          display: flex;
-          flex-direction: column;
-          // align-items: center;
-          &-key {
-            font-size: 32rpx;
-            // font-weight: bold;
-            color: $uni-color-paragraph;
-            margin-bottom: 20rpx;
-          }
-          &-value {
-            font-size: 36rpx;
-            font-weight: bold;
-            color: $uni-color-title;
-          }
+        .desc {
+          font-size: 32rpx;
+          color: $uni-color-paragraph;
+        }
+        .desc_weight {
+          font-weight: bold;
         }
       }
     }
@@ -105,9 +116,18 @@ view {
     border-radius: 20rpx;
     margin-top: 40rpx;
 
+    .swiper {
+      height: 300rpx;
+    }
+
     &-content {
+      box-sizing: border-box;
+      height: 100%;
+      width: 100%;
       color: $uni-text-color-disable;
       font-size: 32rpx;
+      padding: 20rpx;
+      // padding-top: 20rpx;
     }
   }
 }

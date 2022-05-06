@@ -38,6 +38,13 @@ export default {
 /*每个页面公共css */
 @import "vk-uview-ui/index.scss";
 
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+
 page {
   min-height: 100vh;
   background-color: $uni-bg-color-grey;
